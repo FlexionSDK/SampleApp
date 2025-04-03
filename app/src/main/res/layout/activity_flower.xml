@@ -1,0 +1,175 @@
+<ScrollView 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/settings_scrollView"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  >
+
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:gravity="center"
+	    android:layout_gravity="center">
+	    
+	    <ImageView
+	        android:id="@+id/screen_wait"
+	        android:src="@drawable/wait" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:gravity="center"
+	        android:layout_gravity="center"
+	        android:visibility="gone" />
+	    
+		<LinearLayout 
+		    android:id="@+id/screen_main"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+	        android:orientation="vertical"
+	        android:visibility="visible" >
+	    
+		    <LinearLayout 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:gravity="top"
+		        android:layout_gravity="center"
+		        android:orientation="vertical">
+		    
+		    	<ImageView
+		    	    android:src="@drawable/title"
+		    	    android:id="@+id/title"
+		    	    android:layout_width="wrap_content"
+		    	    android:layout_height="wrap_content"
+		    	    android:layout_gravity="center" />
+		    	
+		    	<ImageView
+		    	    android:src="@drawable/free"
+		    	    android:id="@+id/free_or_premium"
+		    	    android:layout_width="wrap_content"
+		    	    android:layout_height="wrap_content"
+		    	    android:layout_gravity="center"
+		    	    android:layout_marginBottom="20dp"  />
+		    	
+		     </LinearLayout>
+		    	
+		     <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:gravity="center"
+		        android:layout_gravity="center"
+		        android:orientation="vertical">
+		    	
+		    	<ImageView
+		    	    android:src="@drawable/placeholder"
+		    	    android:id="@+id/flower_top"
+		    	    android:layout_width="60dp"
+		    	    android:layout_height="60dp"
+		        	android:layout_gravity="center" />
+		    	    	
+		    	<ImageView
+		    	    android:src="@drawable/placeholder"
+		    	    android:id="@+id/flower_bottom"
+		    	    android:layout_width="60dp"
+		    	    android:layout_height="60dp"
+		        	android:layout_gravity="center"  />
+		    	
+		    	<ImageView
+		    	    android:src="@drawable/ground"
+		    	    android:id="@+id/ground"
+		    	    android:layout_width="60dp"
+		    	    android:layout_height="20dp"
+		    	    android:layout_marginBottom="10dp"
+		        	android:layout_gravity="center"  />
+		    	
+		      </LinearLayout>
+		    	
+		      <LinearLayout 
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:gravity="top"
+		        android:layout_gravity="top"
+		        android:orientation="vertical">
+		    	
+		    	<TextView
+		    	    android:id="@+id/player_seeds"
+		    	    android:layout_width="wrap_content"
+		    	    android:layout_height="wrap_content"
+		    	    android:layout_marginBottom="5dp"
+		    	    android:layout_gravity="center"
+		    	    android:textStyle="bold"
+		    	    android:textSize="20sp" />
+
+              <LinearLayout
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_gravity="center">
+
+                  <RelativeLayout
+                      android:id="@+id/grow_a_flower_button_layout"
+                      android:layout_width="wrap_content"
+                      android:layout_height="85dp"
+                      android:orientation="horizontal"
+                      android:layout_gravity="center"
+                      android:layout_marginRight="10dp"
+                      android:onClick="onGrowFlowerButtonClicked">
+
+                      <ImageView
+                          android:src="@drawable/grow_flower"
+                          android:layout_width="150dp"
+                          android:layout_height="100dp"/>
+
+                      <TextView
+                          android:id="@+id/grow_a_flower_button_textview"
+                          android:layout_width="105dp"
+                          android:layout_height="80dp"
+                          android:padding="12dip"
+                          android:textColor="#ffffffff"
+                          android:layout_marginLeft="45dp"
+                          android:layout_marginTop="5dp"
+                          android:text="@string/grow_a_flower_button_text"/>
+
+                  </RelativeLayout>
+
+                  <RelativeLayout
+                      android:id="@+id/buy_seeds_button_layout"
+                      android:layout_width="wrap_content"
+                      android:layout_height="85dp"
+                      android:orientation="horizontal"
+                      android:layout_gravity="center"
+                      android:layout_marginLeft="10dp"
+                      android:onClick="onBuySeedsButtonClicked">
+
+                      <ImageView
+                          android:src="@drawable/buy_seeds"
+                          android:layout_width="150dp"
+                          android:layout_height="100dp"/>
+
+                      <TextView
+                          android:id="@+id/buy_seeds_button_textview"
+                          android:layout_width="105dp"
+                          android:layout_height="80dp"
+                          android:padding="12dip"
+                          android:textColor="#ffffffff"
+                          android:layout_marginLeft="45dp"
+                          android:layout_marginTop="5dp"/>
+
+                  </RelativeLayout>
+
+              </LinearLayout>
+
+              <LinearLayout
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_gravity="center">
+
+              </LinearLayout>
+		    	
+		    </LinearLayout>
+		 
+		</LinearLayout>
+	    
+	</LinearLayout>
+	
+</ScrollView>

@@ -1,0 +1,30 @@
+apply plugin: 'com.android.application'
+
+
+android {
+    defaultConfig {
+        applicationId "com.flexion.funflowers"
+        minSdkVersion 24
+        targetSdkVersion 35
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
+    namespace 'com.flexion.funflowers'
+    compileSdk 35
+
+}
+
+
+dependencies {
+    implementation("com.flexionmobile:sdk:4.0.0")
+}

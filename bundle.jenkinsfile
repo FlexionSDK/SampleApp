@@ -1,0 +1,65 @@
+#!/usr/bin/env groovy
+def flexionSdkLocation = 'app/libs/flexion-sdk.jar'
+
+pipeline {
+    agent any
+
+    parameters {
+        gitParameter(
+                name: 'BRANCH_NAME',
+                defaultValue: 'NONE',
+                description: 'The pipeline will zip the contents of this branch (all files and subdirectories in the root). Most commonly this will be the master.',
+                type: 'PT_BRANCH',
+                branchFilter: 'origin/(.*)',
+                sortMode: 'ASCENDING_SMART'
+        )
+        booleanParam(
+                name: 'UPDATE_SDK_VERSION',
+                defaultValue: true,
+                description: 'If true, the pipeline will fetch the specified version (CORE_BUILD_VERSION) of the flexion-sdk from Nexus and will replace the currently embedded sdk (app/libs/flexion-sdk.jar) in a new commit. If false, a zip bundle will be generated, but the flexion-sdk will not change.'
+        )
+        string(
+                name: 'CORE_BUILD_VERSION',
+                defaultValue: '',
+                description: '(Required) The version of the flexion-sdk.'
+        )
+    }
+
+    stages {
+        stage('Clone') {
+            steps {
+                echo 'Dummy step to separate the build from cloning the repo'
+            }
+        }
+
+        stage('Update the flexion sdk') {
+            when {
+                expression {
+                    return UPDATE_SDK_VERSION == "true"
+                }
+            }
+            steps {
+                sh "curl http://repository2.flexionmobile.com/repository/staging/com/flexionmobile/sdk/flexion-sdk/${CORE_BUILD_VERSION}/flexion-sdk-${CORE_BUILD_VERSION}.jar --output ${flexionSdkLocation}"
+
+                sshagent(credentials: ['frank_zappa-ssh']) {
+                    sh """#!/bin/bash -ex
+                        git add ${flexionSdkLocation}
+                        git commit -m "Update sdk version to ${CORE_BUILD_VERSION}"
+                        git push origin ${BRANCH_NAME}
+                    """
+                }
+            }
+        }
+
+        stage('Create a zip bundle') {
+            steps {
+                zip zipFile: 'fun-flowers.zip', archive: false, dir: '.', exclude: '*.jenkinsfile'
+                sh "curl http://repository2.flexionmobile.com/repository/staging/com/flexionmobile/sdk/flexion-sdk-zip/${CORE_BUILD_VERSION}/flexion-sdk-zip-${CORE_BUILD_VERSION}.zip --output flexion-sdk.zip"
+                unzip zipFile: 'flexion-sdk.zip', dir: 'sdk-bundle'
+                sh 'mv fun-flowers.zip sdk-bundle/fun-flowers-sample-app.zip'
+                zip zipFile: 'flexion-sdk-bundle.zip', archive: false, dir: 'sdk-bundle'
+                archiveArtifacts artifacts: 'flexion-sdk-bundle.zip'
+            }
+        }
+    }
+}
